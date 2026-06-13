@@ -10,29 +10,31 @@
 <body>
     <h1>Task Manager</h1>
  
-        <div class="mb-3">
+        <div class="src-task">
             <label>Search Task</label>
             <br><br>
-            <input type="text" placeholder="Search tasks..."> 
+            <input id="src-task" type="text" placeholder="Search tasks..."> 
         </div>
 
         <br><br>
 
-        <div class="mb-3">
+        <div class="new-task">
             <label>Create new task</label>
             <br><br>
-            <input type="text" placeholder="Enter a task"> 
-            <button>Add a task</button>
+            <input id="new-task" type="text" placeholder="Enter a task"> 
+            <button id="add-task-btn">Add a task</button>
         </div>
 
         <br><br>
-        <div>
-            <button>All</button>
-            <button>Completed</button>
-            <button>Pending</button>
+        <div class="show-btn">
+            <button id="all">All</button>
+            <button id="completed">Completed</button>
+            <button id="pending">Pending</button>
         </div>
 
-        <div></div>
+        <div class="task-list" id="task-list"></div>
+
+        <script src="first.js"></script>
 </body>
 
 </html>
