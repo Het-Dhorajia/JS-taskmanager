@@ -2,10 +2,8 @@ let search_task = document.getElementById("src-task");
 let new_task = document.getElementById("new-task");
 let task_list = document.getElementById("task-list");
 let add_btn = document.getElementById("add-task-btn");
-
 let completedBtn = document.getElementById("completed");
-
-
+let pendingBtn = document.getElementById("pending");
 
 add_btn.addEventListener("click", function () {
     let taskText = new_task.value;
@@ -66,10 +64,16 @@ add_btn.addEventListener("click", function () {
         });
     });
 
- 
+    pendingBtn.addEventListener("click", function () {
+        let tasks = document.querySelectorAll("li");
 
-
-
-
+        tasks.forEach(function (task) {
+            if (!task.classList.contains("completed")) {
+                task.style.display = "list-item";
+            } else {
+                task.style.display = "none";
+            }
+        });
+    });
 
 });
