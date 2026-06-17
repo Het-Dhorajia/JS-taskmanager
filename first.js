@@ -3,6 +3,10 @@ let new_task = document.getElementById("new-task");
 let task_list = document.getElementById("task-list");
 let add_btn = document.getElementById("add-task-btn");
 
+let completedBtn = document.getElementById("completed");
+
+
+
 add_btn.addEventListener("click", function () {
     let taskText = new_task.value;
 
@@ -16,13 +20,13 @@ add_btn.addEventListener("click", function () {
 
     new_task.value = "";
 
-    deletebtn.innerText = "delete";    
+    deletebtn.innerText = "delete";
 
     li.appendChild(deletebtn);
 
-    deletebtn.addEventListener("click" , function () {
+    deletebtn.addEventListener("click", function () {
         li.remove();
-    })
+    });
 
     let completebtn = document.createElement("button");
 
@@ -30,9 +34,42 @@ add_btn.addEventListener("click", function () {
 
     li.appendChild(completebtn);
 
-    completebtn.addEventListener("click" , function () {
+    completebtn.addEventListener("click", function () {
         li.classList.toggle("completed");
-        
-    })
+    });
+
+    search_task.addEventListener("input", function () {
+        let searchText = search_task.value.toLowerCase();
+
+        let tasks = document.querySelectorAll("li");
+
+        tasks.forEach(function (task) {
+            let taskText = task.innerText.toLowerCase();
+
+            if (taskText.includes(searchText)) {
+                task.style.display = "list-item";
+            } else {
+                task.style.display = "none";
+            }
+        });
+    });
+
+    completedBtn.addEventListener("click", function () {
+        let tasks = document.querySelectorAll("li");
+
+        tasks.forEach(function (task) {
+            if (task.classList.contains("completed")) {
+                task.style.display = "list-item";
+            } else {
+                task.style.display = "none";
+            }
+        });
+    });
+
+ 
+
+
+
+
 
 });
