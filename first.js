@@ -4,6 +4,7 @@ let task_list = document.getElementById("task-list");
 let add_btn = document.getElementById("add-task-btn");
 let completedBtn = document.getElementById("completed");
 let pendingBtn = document.getElementById("pending");
+let allBtn = document.getElementById("all");
 
 add_btn.addEventListener("click", function () {
     let taskText = new_task.value;
@@ -75,5 +76,13 @@ add_btn.addEventListener("click", function () {
             }
         });
     });
+
+    allBtn.addEventListener("click", function () {
+    let tasks = document.querySelectorAll("li");
+
+    tasks.forEach(function (task) {
+        task.style.display = "list-item";
+    });
+});
 
 });
