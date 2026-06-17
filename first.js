@@ -22,6 +22,16 @@ add_btn.addEventListener("click", function () {
 
     deletebtn.addEventListener("click" , function () {
         li.remove();
+    })
+
+    let completebtn = document.createElement("button");
+
+    completebtn.innerText = "complete";
+
+    li.appendChild(completebtn);
+
+    completebtn.addEventListener("click" , function () {
+        li.classList.toggle("completed");
         
     })
 
