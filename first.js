@@ -6,83 +6,106 @@ let completedBtn = document.getElementById("completed");
 let pendingBtn = document.getElementById("pending");
 let allBtn = document.getElementById("all");
 
-add_btn.addEventListener("click", function () {
-    let taskText = new_task.value;
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function createTask(taskText) {
     let li = document.createElement("li");
 
     let deletebtn = document.createElement("button");
+    deletebtn.innerText = "delete";
+
+    let completebtn = document.createElement("button");
+    completebtn.innerText = "complete";
 
     li.innerText = taskText;
 
-    task_list.appendChild(li);
-
-    new_task.value = "";
-
-    deletebtn.innerText = "delete";
-
     li.appendChild(deletebtn);
+    li.appendChild(completebtn);
+
+    task_list.appendChild(li);
 
     deletebtn.addEventListener("click", function () {
         li.remove();
+
+        tasks = tasks.filter(function (task) {
+            return task !== taskText;
+        });
+
+        saveTasks();
     });
-
-    let completebtn = document.createElement("button");
-
-    completebtn.innerText = "complete";
-
-    li.appendChild(completebtn);
 
     completebtn.addEventListener("click", function () {
         li.classList.toggle("completed");
     });
+}
 
-    search_task.addEventListener("input", function () {
-        let searchText = search_task.value.toLowerCase();
+tasks.forEach(function (taskText) {
+    createTask(taskText);
+});
 
-        let tasks = document.querySelectorAll("li");
+add_btn.addEventListener("click", function () {
+    let taskText = new_task.value.trim();
 
-        tasks.forEach(function (task) {
-            let taskText = task.innerText.toLowerCase();
+    if (taskText === "") {
+        return;
+    }
 
-            if (taskText.includes(searchText)) {
-                task.style.display = "list-item";
-            } else {
-                task.style.display = "none";
-            }
-        });
+    tasks.push(taskText);
+    saveTasks();
+
+    createTask(taskText);
+
+    new_task.value = "";
+});
+
+search_task.addEventListener("input", function () {
+    let searchText = search_task.value.toLowerCase();
+
+    let tasks = document.querySelectorAll("li");
+
+    tasks.forEach(function (task) {
+        let taskText = task.innerText.toLowerCase();
+
+        if (taskText.includes(searchText)) {
+            task.style.display = "list-item";
+        } else {
+            task.style.display = "none";
+        }
     });
+});
 
-    completedBtn.addEventListener("click", function () {
-        let tasks = document.querySelectorAll("li");
+completedBtn.addEventListener("click", function () {
+    let tasks = document.querySelectorAll("li");
 
-        tasks.forEach(function (task) {
-            if (task.classList.contains("completed")) {
-                task.style.display = "list-item";
-            } else {
-                task.style.display = "none";
-            }
-        });
+    tasks.forEach(function (task) {
+        if (task.classList.contains("completed")) {
+            task.style.display = "list-item";
+        } else {
+            task.style.display = "none";
+        }
     });
+});
 
-    pendingBtn.addEventListener("click", function () {
-        let tasks = document.querySelectorAll("li");
+pendingBtn.addEventListener("click", function () {
+    let tasks = document.querySelectorAll("li");
 
-        tasks.forEach(function (task) {
-            if (!task.classList.contains("completed")) {
-                task.style.display = "list-item";
-            } else {
-                task.style.display = "none";
-            }
-        });
+    tasks.forEach(function (task) {
+        if (!task.classList.contains("completed")) {
+            task.style.display = "list-item";
+        } else {
+            task.style.display = "none";
+        }
     });
+});
 
-    allBtn.addEventListener("click", function () {
+allBtn.addEventListener("click", function () {
     let tasks = document.querySelectorAll("li");
 
     tasks.forEach(function (task) {
         task.style.display = "list-item";
     });
-});
-
 });
